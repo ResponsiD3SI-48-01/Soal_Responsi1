@@ -1,52 +1,11 @@
-name: Autograding Tests
-'on': [push, pull_request]
-permissions:
-  checks: write
-  actions: read
-  contents: read
+name: GitHub Classroom Workflow
+
+on: [push]
 
 jobs:
-  run-autograding-tests:
+  build:
+    name: Autograding
     runs-on: ubuntu-latest
-    if: github.actor != 'github-classroom[bot]'
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Compile Soal01.java
-        run: javac Soal01.java
-
-      - name: Test Soal01a
-        id: soal01a
-        uses: classroom-resources/autograding-command-grader@v1
-        with:
-          test-name: Soal01a
-          setup-command: "javac Soal01.java"
-          command: "echo '5\n5\n' | java Soal01"
-          comparison: "included"
-          expected-output: "Total Gaji Anda Adalah : 75000000250000"
-          timeout: 10
-          max-score: 50
-
-      - name: Test Soal01b
-        id: soal01b
-        uses: classroom-resources/autograding-command-grader@v1
-        with:
-          test-name: Soal01b
-          setup-command: "javac Soal01.java"
-          command: "echo '3\n6\n1\n4' | java Soal01"
-          comparison: "included"
-          expected-output: |
-            HIDUP HIDUP
-            HIDUP MATI
-            MATI MATI
-          timeout: 10
-          max-score: 50
-
-      - name: Autograding Reporter
-        uses: classroom-resources/autograding-grading-reporter@v1
-        env:
-          SOAL01A_RESULTS: "${{ steps.soal01a.outputs.result }}"
-          SOAL01B_RESULTS: "${{ steps.soal01b.outputs.result }}"
-        with:
-          runners: soal01a,soal01b
+      - uses: actions/checkout@v2
+      - uses: education/autograding@v1
