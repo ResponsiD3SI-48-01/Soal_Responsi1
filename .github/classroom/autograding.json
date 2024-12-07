@@ -14,8 +14,8 @@
             "name": "Soal01b",
             "setup": "javac Soal01.java",
             "run": "java Soal01",
-            "input": "3\n6\n1\n4",
-            "output": "HIDUP HIDUP\nHIDUP MATI\nMATI MATI",
+            "input": "5\nY\n6\nY\n9\nY\n20\nT",
+            "output": "Nilai minimal : 5\nNilai maksimal : 20\nNilai rata-rata : 10.0",
             "comparison": "included",
             "timeout": 10,
             "points": 50
