@@ -15,7 +15,7 @@
             "setup": "javac latihan2.java",
             "run": "java latihan2",
             "input": "5\nY\n6\nY\n9\nY\n20\nT\n",
-            "output": "Nilai minimal : 5\nNilai maksimal : 20\nNilai rata-rata : 10.0",
+            "output": "\nNilai minimal : 5\nNilai maksimal : 20\nNilai rata-rata : 10.0",
             "comparison": "included",
             "timeout": 10,
             "points": 50
