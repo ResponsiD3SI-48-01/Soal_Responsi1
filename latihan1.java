@@ -1,3 +1,3 @@
 public class latihan1 {
-    //Kerjakan Disini
+    //Kerjakan Disini 
 }

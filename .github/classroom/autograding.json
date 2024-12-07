@@ -10,6 +10,7 @@
             "timeout": 10,
             "points": 50
         },
+        
         {
             "name": "latihan2",
             "setup": "javac latihan2.java",
