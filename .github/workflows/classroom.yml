@@ -1,0 +1,40 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: latihan1.java
+      id: latihan1-java
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: latihan1.java
+        setup-command: ''
+        command: gradle test
+        timeout: 10
+        max-score: 50
+    - name: latihan2.java
+      id: latihan2-java
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: latihan2.java
+        setup-command: ''
+        command: gradle test
+        timeout: 10
+        max-score: 50
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        LATIHAN1-JAVA_RESULTS: "${{steps.latihan1-java.outputs.result}}"
+        LATIHAN2-JAVA_RESULTS: "${{steps.latihan2-java.outputs.result}}"
+      with:
+        runners: latihan1-java,latihan2-java
