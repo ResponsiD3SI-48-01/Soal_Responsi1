@@ -23,9 +23,9 @@ public class latihan2 {
         int max = hitungMax();
         double rataRata = hitungRataRata();
         
-        System.out.println("Nilai minimal   : " + min);
-        System.out.println("Nilai maksimal  : " + max);
-        System.out.println("Nilai rata-rata : " + rataRata);
+        System.out.println("Nilai minimal: " + min);
+        System.out.println("Nilai maksimal: " + max);
+        System.out.println("Nilai rata-rata: " + rataRata);
         scanner.close();
     }
     
