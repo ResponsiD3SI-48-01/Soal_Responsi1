@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Soal01 {
+public class latihan1 {
     static int tahun = 0;
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Soal02 {
+public class latihan2 {
     static ArrayList<Integer> angkaList = new ArrayList<>();
     
     public static void main(String[] args) {
