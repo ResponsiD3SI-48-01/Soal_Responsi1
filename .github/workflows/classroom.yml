@@ -1,26 +1,52 @@
-name: Autograding Java
-
-on: [push, pull_request]
+name: Autograding Tests
+'on': [push, pull_request]
+permissions:
+  checks: write
+  actions: read
+  contents: read
 
 jobs:
-  build:
-    name: Run Java Tests
+  run-autograding-tests:
     runs-on: ubuntu-latest
-
+    if: github.actor != 'github-classroom[bot]'
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
+      - name: Compile Soal01.java
+        run: javac Soal01.java
+
+      - name: Test Soal01a
+        id: soal01a
+        uses: classroom-resources/autograding-command-grader@v1
         with:
-          java-version: '17'
-          distribution: 'temurin'
+          test-name: Soal01a
+          setup-command: "javac Soal01.java"
+          command: "echo '5\n5\n' | java Soal01"
+          comparison: "included"
+          expected-output: "Total Gaji Anda Adalah : 75000000250000"
+          timeout: 10
+          max-score: 50
 
-      - name: Compile Code
-        run: javac -d out src/main/java/latihan1.java src/test/java/Latihan1Test.java
+      - name: Test Soal01b
+        id: soal01b
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: Soal01b
+          setup-command: "javac Soal01.java"
+          command: "echo '3\n6\n1\n4' | java Soal01"
+          comparison: "included"
+          expected-output: |
+            HIDUP HIDUP
+            HIDUP MATI
+            MATI MATI
+          timeout: 10
+          max-score: 50
 
-      - name: Run Tests
-        run: |
-          cd out
-          java org.junit.platform.console.ConsoleLauncher --class-path . --scan-class-path
+      - name: Autograding Reporter
+        uses: classroom-resources/autograding-grading-reporter@v1
+        env:
+          SOAL01A_RESULTS: "${{ steps.soal01a.outputs.result }}"
+          SOAL01B_RESULTS: "${{ steps.soal01b.outputs.result }}"
+        with:
+          runners: soal01a,soal01b
