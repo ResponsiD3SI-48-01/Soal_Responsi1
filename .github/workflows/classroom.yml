@@ -1,26 +1,40 @@
-name: Autograding Java
-
-on: [push, pull_request]
-
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
 jobs:
-  build:
-    name: Run Java Tests
+  run-autograding-tests:
     runs-on: ubuntu-latest
-
+    if: github.actor != 'github-classroom[bot]'
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
-      - name: Compile Code
-        run: javac -d out src/main/java/latihan1.java src/test/java/Latihan1Test.java
-
-      - name: Run Tests
-        run: |
-          cd out
-          java org.junit.platform.console.ConsoleLauncher --class-path . --scan-class-path
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Soal01.java
+      id: soal01-java
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Soal01.java
+        setup-command: ''
+        command: gradle test
+        timeout: 10
+        max-score: 50
+    - name: Soal02.java
+      id: soal02-java
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Soal02.java
+        setup-command: ''
+        command: gradle test
+        timeout: 10
+        max-score: 50
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        SOAL01-JAVA_RESULTS: "${{steps.soal01-java.outputs.result}}"
+        SOAL02-JAVA_RESULTS: "${{steps.soal02-java.outputs.result}}"
+      with:
+        runners: soal01-java,soal02-java
