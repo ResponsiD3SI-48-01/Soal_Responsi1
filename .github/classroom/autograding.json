@@ -5,7 +5,7 @@
             "setup": "javac latihan1.java",
             "run": "java latihan1",
             "input": "5\n5\n",
-            "output": "Total Gaji Anda Adalah : 75000000250000",
+            "output": "Total Gaji Anda Adalah : 7750000",
             "comparison": "included",
             "timeout": 10,
             "points": 50
